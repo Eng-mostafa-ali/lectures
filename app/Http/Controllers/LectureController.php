@@ -39,13 +39,13 @@ class LectureController extends Controller
 
             'lectures_count' => $lectures->count(),
             'rooms_count' => $availableRooms->count(),
+            'available_trainers_count' => $dashboard['availableTrainerCount'],
             'total_count' => $lectures->count() +
                 $availableRooms->count(),
             'attendance_by_schedule' => (object) $attendanceBySchedule,
         ]);
     }
 
-  
     public function attendance($scheduleId)
     {
         $attendance = $this->lectureService

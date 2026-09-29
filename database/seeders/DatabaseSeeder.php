@@ -2,21 +2,19 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use App\Models\Course;
 use App\Models\Batch;
-use App\Models\Trainee;
-use App\Models\TraineeSection;
+use App\Models\Course;
 use App\Models\Room;
 use App\Models\Schedule;
 use App\Models\ScheduleTemplate;
 use App\Models\ScheduleTemplateDay;
 use App\Models\ScheduleTemplateSlot;
-
+use App\Models\Trainee;
+use App\Models\TraineeSection;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
-use Carbon\Carbon;
 
 class DatabaseSeeder extends Seeder
 {
@@ -72,7 +70,6 @@ class DatabaseSeeder extends Seeder
             );
         }
 
-
         /*
         |--------------------------------------------------------------------------
         | COURSES
@@ -87,8 +84,7 @@ class DatabaseSeeder extends Seeder
                 Course::create([
                     // 'program_id' => null,
 
-                    'course_code' =>
-                        'CRS-' . str_pad($i, 4, '0', STR_PAD_LEFT),
+                    'course_code' => 'CRS-'.str_pad($i, 4, '0', STR_PAD_LEFT),
 
                     'name' => fake()->randomElement([
                         'Laravel Development',
@@ -113,7 +109,6 @@ class DatabaseSeeder extends Seeder
             );
         }
 
-
         /*
         |--------------------------------------------------------------------------
         | BATCHES
@@ -132,11 +127,9 @@ class DatabaseSeeder extends Seeder
                 Batch::create([
                     // 'training_plan_id' => null,
 
-                    'batch_code' =>
-                        'BATCH-' . str_pad($i, 3, '0', STR_PAD_LEFT),
+                    'batch_code' => 'BATCH-'.str_pad($i, 3, '0', STR_PAD_LEFT),
 
-                    'batch_name' =>
-                        'Training Batch ' . $i,
+                    'batch_name' => 'Training Batch '.$i,
 
                     'trainee_count' => 50,
 
@@ -152,7 +145,6 @@ class DatabaseSeeder extends Seeder
             );
         }
 
-
         /*
         |--------------------------------------------------------------------------
         | TRAINEE SECTIONS
@@ -167,13 +159,11 @@ class DatabaseSeeder extends Seeder
 
                 $sections->push(
                     TraineeSection::create([
-                        'section_code' =>
-                            'SEC-' . $batch->id . '-' . $i,
+                        'section_code' => 'SEC-'.$batch->id.'-'.$i,
 
                         'batch_id' => $batch->id,
 
-                        'section_name' =>
-                            'Section ' . $i,
+                        'section_name' => 'Section '.$i,
 
                         'trainee_count' => 20,
 
@@ -187,7 +177,6 @@ class DatabaseSeeder extends Seeder
                 );
             }
         }
-
 
         /*
         |--------------------------------------------------------------------------
@@ -204,14 +193,12 @@ class DatabaseSeeder extends Seeder
 
                 Trainee::create([
 
-                    'academic_number' =>
-                        'STU-' .
-                        $section->id .
-                        '-' .
+                    'academic_number' => 'STU-'.
+                        $section->id.
+                        '-'.
                         str_pad($i, 3, '0', STR_PAD_LEFT),
 
-                    'trainee_section_id' =>
-                        $section->id,
+                    'trainee_section_id' => $section->id,
 
                     // 'entity_id' => null,
 
@@ -225,42 +212,35 @@ class DatabaseSeeder extends Seeder
                     'grand_father_name_en' => fake()->firstName(),
                     'family_name_en' => $lastName,
 
-                    'username' =>
-                        fake()->unique()->userName(),
+                    'username' => fake()->unique()->userName(),
 
-                    'email' =>
-                        fake()->unique()->safeEmail(),
+                    'email' => fake()->unique()->safeEmail(),
 
                     'email_verified_at' => now(),
 
-                    'password' =>
-                        Hash::make('password'),
+                    'password' => Hash::make('password'),
 
-                    'phone' =>
-                        fake()->unique()->numerify('05########'),
+                    'phone' => fake()->unique()->numerify('05########'),
 
                     'phone_verified_at' => now(),
 
-                    'ident_num' =>
-                        fake()->unique()->numerify('##########'),
+                    'ident_num' => fake()->unique()->numerify('##########'),
 
                     'image' => null,
 
-                    'gender' =>
-                        fake()->randomElement([
-                            'male',
-                            'female',
-                        ]),
+                    'gender' => fake()->randomElement([
+                        'male',
+                        'female',
+                    ]),
 
                     'receive_emails' => 'active',
                     'receive_SMS' => 'active',
                     'receive_notify' => 'active',
 
-                    'language_type' =>
-                        fake()->randomElement([
-                            'arabic',
-                            'english',
-                        ]),
+                    'language_type' => fake()->randomElement([
+                        'arabic',
+                        'english',
+                    ]),
 
                     'status' => 'active',
 
@@ -271,7 +251,6 @@ class DatabaseSeeder extends Seeder
                 ]);
             }
         }
-
 
         /*
         |--------------------------------------------------------------------------
@@ -286,8 +265,7 @@ class DatabaseSeeder extends Seeder
             $rooms->push(
                 Room::create([
 
-                    'room_code' =>
-                        'ROOM-' . str_pad($i, 3, '0', STR_PAD_LEFT),
+                    'room_code' => 'ROOM-'.str_pad($i, 3, '0', STR_PAD_LEFT),
 
                     /*
                      * لازم تكون null لأننا لا نعرف
@@ -297,21 +275,17 @@ class DatabaseSeeder extends Seeder
 
                     // 'floor_id' => null,
 
-                    'description_ar' =>
-                        'قاعة تدريب رقم ' . $i,
+                    'description_ar' => 'قاعة تدريب رقم '.$i,
 
-                    'description_en' =>
-                        'Training Room ' . $i,
+                    'description_en' => 'Training Room '.$i,
 
-                    'status' =>
-                        fake()->randomElement([
-                            'active',
-                            'active',
-                            'inactive',
-                        ]),
+                    'status' => fake()->randomElement([
+                        'active',
+                        'active',
+                        'inactive',
+                    ]),
 
-                    'used_in_schedule' =>
-                        fake()->boolean(),
+                    'used_in_schedule' => fake()->boolean(),
 
                     // 'created_by' => null,
                     // 'updated_by' => null,
@@ -321,7 +295,6 @@ class DatabaseSeeder extends Seeder
                 ])
             );
         }
-
 
         /*
         |--------------------------------------------------------------------------
@@ -336,11 +309,9 @@ class DatabaseSeeder extends Seeder
             $templates->push(
                 ScheduleTemplate::create([
 
-                    'template_code' =>
-                        'TPL-' . str_pad($i, 3, '0', STR_PAD_LEFT),
+                    'template_code' => 'TPL-'.str_pad($i, 3, '0', STR_PAD_LEFT),
 
-                    'name' =>
-                        'Training Schedule Template ' . $i,
+                    'name' => 'Training Schedule Template '.$i,
 
                     'status' => 'active',
 
@@ -352,7 +323,6 @@ class DatabaseSeeder extends Seeder
                 ])
             );
         }
-
 
         /*
         |--------------------------------------------------------------------------
@@ -374,14 +344,12 @@ class DatabaseSeeder extends Seeder
 
                 ScheduleTemplateDay::create([
 
-                    'schedule_template_id' =>
-                        $template->id,
+                    'schedule_template_id' => $template->id,
 
                     'day' => $day,
                 ]);
             }
         }
-
 
         /*
         |--------------------------------------------------------------------------
@@ -402,8 +370,7 @@ class DatabaseSeeder extends Seeder
 
                 ScheduleTemplateSlot::create([
 
-                    'schedule_template_id' =>
-                        $template->id,
+                    'schedule_template_id' => $template->id,
 
                     'start_time' => $start,
 
@@ -411,7 +378,6 @@ class DatabaseSeeder extends Seeder
                 ]);
             }
         }
-
 
         /*
         |--------------------------------------------------------------------------
@@ -422,6 +388,12 @@ class DatabaseSeeder extends Seeder
         $usedSchedules = [];
 
         for ($i = 1; $i <= 50; $i++) {
+            $deliveryMode = fake()->randomElement([
+                'onsite',
+                'onsite',
+                'online',
+                'hybrid',
+            ]);
 
             do {
 
@@ -432,79 +404,60 @@ class DatabaseSeeder extends Seeder
                 $startHour = fake()->numberBetween(8, 16);
 
                 $startTime =
-                    str_pad($startHour, 2, '0', STR_PAD_LEFT) . ':00:00';
+                    str_pad($startHour, 2, '0', STR_PAD_LEFT).':00:00';
 
                 $endTime =
-                    str_pad($startHour + 2, 2, '0', STR_PAD_LEFT) . ':00:00';
+                    str_pad($startHour + 2, 2, '0', STR_PAD_LEFT).':00:00';
+
+                $roomId = $deliveryMode === 'online'
+                    ? null
+                    : $rooms->random()->id;
 
                 $key =
-                    $date .
-                    '_' .
-                    $startTime .
-                    '_' .
-                    $rooms->random()->id;
+                    $date.
+                    '_'.
+                    $startTime.
+                    '_'.
+                    ($roomId ?? 'online_'.$i);
 
             } while (isset($usedSchedules[$key]));
 
             $usedSchedules[$key] = true;
 
-            $deliveryMode = fake()->randomElement([
-                'onsite',
-                'onsite',
-                'online',
-                'hybrid',
-            ]);
-
-            $roomId = in_array($deliveryMode, ['online'])
-                ? null
-                : $rooms->random()->id;
-
             Schedule::create([
 
-                'batch_id' =>
-                    $batches->random()->id,
+                'batch_id' => $batches->random()->id,
 
-                'trainee_section_id' =>
-                    $sections->random()->id,
+                'trainee_section_id' => $sections->random()->id,
 
-                'trainer_id' =>
-                    $users->random()->id,
+                'trainer_id' => $users->random()->id,
 
-                'room_id' =>
-                    $roomId,
+                'room_id' => $roomId,
 
-                'delivery_mode' =>
-                    $deliveryMode,
+                'delivery_mode' => $deliveryMode,
 
-                'online_link' =>
-                    in_array($deliveryMode, ['online', 'hybrid'])
-                        ? 'https://meet.google.com/' .
+                'online_link' => in_array($deliveryMode, ['online', 'hybrid'])
+                        ? 'https://meet.google.com/'.
                           fake()->bothify('???-????-???')
                         : null,
 
-                'recurrence_key' =>
-                    fake()->optional()->uuid(),
+                'recurrence_key' => fake()->optional()->uuid(),
 
-                'course_id' =>
-                    $courses->random()->id,
+                'course_id' => $courses->random()->id,
 
-                'date' =>
-                    $date,
+                'date' => $date,
 
-                'start_time' =>
-                    $startTime,
+                'start_time' => $startTime,
 
-                'end_time' =>
-                    $endTime,
+                'end_time' => $endTime,
 
-                'status' =>
-                    fake()->randomElement([
-                        'not_started',
-                        'not_started',
-                        'in_progress',
-                        'finished',
-                        'cancelled',
-                    ]),
+                'status' => fake()->randomElement([
+                    'not_started',
+                    'not_started',
+                    'in_progress',
+                    'finished',
+                    'cancelled',
+                ]),
 
                 // 'created_by' => null,
                 // 'updated_by' => null,

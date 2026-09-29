@@ -1987,6 +1987,7 @@
 
         .dashboard-wrapper {
             padding: 28px 30px 50px;
+            min-height: calc(100dvh - 10px);
         }
 
         .dashboard-header {
@@ -2016,8 +2017,27 @@
         }
 
         .total-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            min-height: 40px;
             padding: 10px 14px;
             font-size: 11px;
+            white-space: nowrap;
+        }
+
+        .dashboard-summary {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .summary-value {
+            color: var(--ink);
+            font-size: 14px;
+            font-variant-numeric: tabular-nums;
         }
 
         .total-badge i {
@@ -2527,6 +2547,11 @@
                 margin-bottom: 28px;
             }
 
+            .dashboard-summary {
+                justify-content: flex-start;
+                width: 100%;
+            }
+
             .dashboard-title {
                 font-size: 25px;
             }
@@ -2553,6 +2578,18 @@
             .dashboard-wrapper {
                 padding-right: 14px;
                 padding-left: 14px;
+            }
+
+            .dashboard-summary {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .dashboard-summary .total-badge {
+                min-width: 0;
+                justify-content: center;
+                padding: 8px;
+                white-space: normal;
             }
 
             .rooms-grid {
@@ -3429,6 +3466,185 @@
                 --lecture-card-height: 228px;
             }
         }
+
+        .dashboard-wrapper {
+            width: 100%;
+            height: calc(100dvh - 10px);
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            padding: 16px 22px;
+        }
+
+        .dashboard-header {
+            flex: 0 0 auto;
+            margin-bottom: 10px;
+        }
+
+        .dashboard-content {
+            flex: 1 1 auto;
+            min-height: 0;
+            display: grid;
+            grid-template-rows: minmax(0, 1fr) minmax(44px, 10dvh);
+            gap: 6px;
+        }
+
+        .dashboard-section {
+            min-width: 0;
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .dashboard-section .section-header {
+            flex: 0 0 auto;
+            margin: 0 0 6px;
+        }
+
+        .dashboard-section .lectures-grid,
+        .dashboard-section .rooms-grid {
+            flex: 1 1 auto;
+            min-height: 0;
+            display: grid;
+            align-content: stretch;
+            overflow: hidden;
+            padding: 0;
+            gap: 5px;
+        }
+
+        .dashboard-section .lecture-card,
+        .dashboard-section .room-card {
+            width: 100%;
+            height: 100%;
+            min-height: 0;
+            overflow: hidden;
+        }
+
+        .dashboard-section .lecture-card {
+            padding: 8px;
+        }
+
+        .lectures-section[data-density="compact"] .lecture-details,
+        .lectures-section[data-density="compact"] .lecture-footer {
+            display: none;
+        }
+
+        .lectures-section[data-density="tiny"] .lecture-icon,
+        .lectures-section[data-density="tiny"] .course-code,
+        .lectures-section[data-density="tiny"] .lecture-details,
+        .lectures-section[data-density="tiny"] .lecture-timeline,
+        .lectures-section[data-density="tiny"] .lecture-attendance-rate,
+        .lectures-section[data-density="tiny"] .lecture-footer {
+            display: none;
+        }
+
+        .lectures-section[data-density="tiny"] .lecture-card {
+            padding: 4px;
+        }
+
+        .lectures-section[data-density="tiny"] .lecture-room {
+            max-width: none;
+            font-size: 10px;
+            white-space: normal;
+            overflow-wrap: anywhere;
+        }
+
+        .lectures-section[data-density="tiny"] .lecture-time {
+            grid-template-columns: 1fr;
+            gap: 1px;
+            margin-top: 3px;
+            padding: 3px;
+            font-size: 9px;
+        }
+
+        .lectures-section[data-density="tiny"] .time-separator {
+            display: none;
+        }
+
+        .lectures-section[data-density="tiny"] .time-block:last-child {
+            justify-content: flex-start;
+        }
+
+        .rooms-section[data-density="compact"] .room-card {
+            gap: 5px;
+            padding: 5px;
+        }
+
+        .rooms-section[data-density="tiny"] .room-icon,
+        .rooms-section[data-density="tiny"] .room-free {
+            display: none;
+        }
+
+        .rooms-section[data-density="tiny"] .room-card {
+            justify-content: center;
+            padding: 3px;
+            text-align: center;
+        }
+
+        .rooms-section[data-density="tiny"] .room-code {
+            font-size: 9px;
+            overflow-wrap: anywhere;
+        }
+
+        .dashboard-section .room-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 8px 12px;
+            border: 1px solid var(--line);
+            border-left: 4px solid var(--teal);
+            border-radius: var(--radius-card);
+            box-shadow: var(--shadow-card);
+        }
+
+        .dashboard-section .room-free {
+            flex: 0 0 auto;
+            margin: 0;
+            padding: 6px 8px;
+            border-radius: 999px;
+            background: var(--teal-soft);
+            color: var(--teal-ink);
+            white-space: nowrap;
+        }
+
+        .dashboard-section .room-footer {
+            display: none;
+        }
+
+        @media (max-width: 760px) {
+            .dashboard-wrapper {
+                padding: 10px 12px;
+            }
+
+            .dashboard-header {
+                gap: 8px;
+                margin-bottom: 8px;
+            }
+
+            .dashboard-content {
+                grid-template-rows: minmax(0, 1fr) minmax(38px, 9dvh);
+                gap: 5px;
+            }
+
+            .dashboard-section .room-card {
+                gap: 6px;
+                padding: 5px;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .dashboard-wrapper {
+                height: calc(100dvh - 7px);
+                padding: 7px;
+            }
+
+            .dashboard-content {
+                grid-template-rows: minmax(0, 1fr) minmax(32px, 7dvh);
+                gap: 3px;
+            }
+        }
     </style>
 
 </head>
@@ -3459,88 +3675,108 @@
             </div>
 
 
-            <div class="total-badge" id="totalCount" aria-live="polite">
+            <div class="dashboard-summary" aria-label="Today's availability">
+                <div class="total-badge" id="totalCount" aria-live="polite">
+                    <i class="fas fa-layer-group" aria-hidden="true"></i>
+                    Total: {{ $lectures->count() + $availableRooms->count() }}
+                </div>
 
-                <i class="fas fa-layer-group" aria-hidden="true"></i>
+                <div class="total-badge">
+                    <i class="fas fa-chalkboard-teacher" aria-hidden="true"></i>
+                    Available trainers
+                    <strong class="summary-value" id="availableTrainersCount" aria-live="polite">
+                        {{ $availableTrainerCount }}
+                    </strong>
+                </div>
 
-                Total:
-                {{ $lectures->count() + $availableRooms->count() }}
-
+                <div class="total-badge">
+                    <i class="fas fa-door-open" aria-hidden="true"></i>
+                    Available rooms
+                    <strong class="summary-value" id="availableRoomsHeaderCount" aria-live="polite">
+                        {{ $availableRooms->count() }}
+                    </strong>
+                </div>
             </div>
 
         </div>
 
+        <div class="dashboard-content">
+            <section class="dashboard-section lectures-section">
 
-        {{-- =========================================================
+                {{-- =========================================================
          LECTURES HEADER
     ========================================================== --}}
 
-        <div class="section-header">
+                <div class="section-header">
 
-            <div class="section-title">
+                    <div class="section-title">
 
-                <i class="fas fa-chalkboard-teacher" style="color: var(--blue);" aria-hidden="true"></i>
+                        <i class="fas fa-chalkboard-teacher" style="color: var(--blue);" aria-hidden="true"></i>
 
-                Today's Lectures
+                        Today's Lectures
 
-            </div>
-
-
-            <div class="section-count" id="lecturesCount" aria-live="polite">
-
-                {{ $lectures->count() }}
-
-                Lectures
-
-            </div>
-
-        </div>
+                    </div>
 
 
-        {{-- =========================================================
+                    <div class="section-count" id="lecturesCount" aria-live="polite">
+
+                        {{ $lectures->count() }}
+
+                        Lectures
+
+                    </div>
+
+                </div>
+
+
+                {{-- =========================================================
          LECTURES
     ========================================================== --}}
 
-        <div class="lectures-grid" id="lecturesGrid">
+                <div class="lectures-grid" id="lecturesGrid">
 
-            @include('partials.lectures-grid', [
-                'lectures' => $lectures,
-            ])
+                    @include('partials.lectures-grid', [
+                        'lectures' => $lectures,
+                    ])
 
-        </div>
+                </div>
+            </section>
 
+            <section class="dashboard-section rooms-section">
 
-        {{-- =========================================================
+                {{-- =========================================================
          AVAILABLE ROOMS
     ========================================================== --}}
 
-        <div class="section-header">
+                <div class="section-header">
 
-            <div class="section-title">
+                    <div class="section-title">
 
-                <i class="fas fa-door-open" style="color: var(--teal);" aria-hidden="true"></i>
+                        <i class="fas fa-door-open" style="color: var(--teal);" aria-hidden="true"></i>
 
-                Available Rooms
+                        Available Rooms
 
-            </div>
-
-
-            <div class="section-count" id="roomsCount" aria-live="polite">
-
-                {{ $availableRooms->count() }}
-
-                Rooms
-
-            </div>
-
-        </div>
+                    </div>
 
 
-        <div class="rooms-grid" id="roomsGrid">
+                    <div class="section-count" id="roomsCount" aria-live="polite">
 
-            @include('partials.room-grid', [
-                'availableRooms' => $availableRooms,
-            ])
+                        {{ $availableRooms->count() }}
+
+                        Rooms
+
+                    </div>
+
+                </div>
+
+
+                <div class="rooms-grid" id="roomsGrid">
+
+                    @include('partials.room-grid', [
+                        'availableRooms' => $availableRooms,
+                    ])
+                </div>
+            </section>
         </div>
 
 
@@ -3561,57 +3797,26 @@
 
             {{-- =====================================================
              HEADER
-        ====================================================== --}}
-
+            ====================================================== --}}
             <div class="modal-header not-started" data-modal-header>
-
-
                 <div class="modal-header-left">
-
-
                     <div class="modal-icon">
-
-                        <i class="fas fa-chalkboard-teacher"></i>
-
+                        <i class="fas fa-chalkboard-teacher" aria-hidden="true"></i>
                     </div>
-
-
                     <div>
-
-                        <div class="modal-title" id="lectureModalTitle" data-modal-batch>
-                            -
-                        </div>
-
-
-                        <div class="modal-trainer" data-modal-trainer>
-                            -
-                        </div>
-
+                        <div class="modal-title" id="lectureModalTitle" data-modal-batch>-</div>
+                        <div class="modal-trainer" data-modal-trainer>-</div>
                     </div>
-
-
                 </div>
-
-
-                <div class="modal-course" data-modal-course>
-                    -
-                </div>
-
-
+                <div class="modal-course" data-modal-course>-</div>
                 <button type="button" class="modal-close" id="closeLectureModal" aria-label="Close lecture details">
-
                     <i class="fas fa-times" aria-hidden="true"></i>
-
                 </button>
-
-
             </div>
-
 
             {{-- =====================================================
              BODY
-        ====================================================== --}}
-
+            ====================================================== --}}
             <div class="modal-body" role="region" tabindex="0" aria-label="Lecture details">
 
 
@@ -4023,76 +4228,34 @@
 
     <script>
         /* ============================================================
-                                                           VARIABLES
-                                                        ============================================================ */
+                       VARIABLES
+                    ============================================================ */
 
-        const lectureModal =
-            document.getElementById(
-                'lectureModal'
-            );
-
-        const closeLectureModal =
-            document.getElementById(
-                'closeLectureModal'
-            );
-
+        const lectureModal = document.getElementById('lectureModal');
+        const closeLectureModal = document.getElementById('closeLectureModal');
         let selectedLecture = null;
         let lastFocusedLecture = null;
         let attendanceBySchedule = {};
 
-
-        /* ============================================================
-           DATE PARSER
-        ============================================================ */
-
         function parseDateTime(value) {
-
             if (!value) {
                 return null;
             }
 
-            return new Date(
-                value
-                .trim()
-                .replace(' ', 'T')
-            );
+            return new Date(value.trim().replace(' ', 'T'));
         }
-
-
-        /* ============================================================
-           FORMAT REMAINING
-        ============================================================ */
 
         function formatRemaining(seconds) {
+            seconds = Math.max(0, Math.floor(seconds));
 
-            seconds =
-                Math.max(
-                    0,
-                    Math.floor(seconds)
-                );
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const remainingSeconds = seconds % 60;
 
-            const hours =
-                Math.floor(
-                    seconds / 3600
-                );
-
-            const minutes =
-                Math.floor(
-                    (seconds % 3600) / 60
-                );
-
-            const secs =
-                seconds % 60;
-
-            return (
-                String(hours).padStart(2, '0') +
-                ':' +
-                String(minutes).padStart(2, '0') +
-                ':' +
-                String(secs).padStart(2, '0')
-            );
+            return String(hours).padStart(2, '0') + ':' +
+                String(minutes).padStart(2, '0') + ':' +
+                String(remainingSeconds).padStart(2, '0');
         }
-
 
         /* ============================================================
            VISUAL STATE
@@ -4558,6 +4721,12 @@
             const roomsCount =
                 document.getElementById('roomsCount');
 
+            const availableTrainersCount =
+                document.getElementById('availableTrainersCount');
+
+            const availableRoomsHeaderCount =
+                document.getElementById('availableRoomsHeaderCount');
+
             const totalCount =
                 document.getElementById('totalCount');
 
@@ -4578,6 +4747,20 @@
 
                 roomsCount.textContent =
                     result.rooms_count + ' Rooms';
+            }
+
+            if (
+                availableRoomsHeaderCount &&
+                result.rooms_count !== undefined
+            ) {
+                availableRoomsHeaderCount.textContent = result.rooms_count;
+            }
+
+            if (
+                availableTrainersCount &&
+                result.available_trainers_count !== undefined
+            ) {
+                availableTrainersCount.textContent = result.available_trainers_count;
             }
 
             if (

@@ -2,9 +2,6 @@
 
 namespace App\Services;
 
-use App\Jobs\CancelNotStartedLectureJob;
-use App\Jobs\EndLectureJob;
-use App\Jobs\GetAttendanceJob;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -13,8 +10,10 @@ class LectureService
 {
     public function getTodayDashboard(Collection $items): Collection
     {
+        // هجهز بيانات المحاضرات والغرف
         return $items->map(function ($item) {
             if ($item->item_type === 'available_room') {
+                // لو العنصر غرفة فاضية هجهز اسمها وأرجعها من غير بيانات محاضرة
                 $item->room_code = $item->room_code ?? 'No Room';
                 $item->room_label = $item->room_code;
 
@@ -32,6 +31,7 @@ class LectureService
             $traineeCount = (int) ($item->trainee_count ?? 0);
             $presentCount = (int) ($item->present_count ?? 0);
 
+            // هحسب نسبة الحضور
             $attendancePercentage = $traineeCount > 0
                 ? round(($presentCount / $traineeCount) * 100, 1)
                 : 0;
@@ -93,6 +93,7 @@ class LectureService
 
     public function getTodayLecturesAndRooms()
     {
+        // هجيب محاضرات النهارده وبياناتها، وكمان الغرف المتاحة
         $query = "
         SELECT 
             'lecture' AS item_type,
@@ -282,13 +283,13 @@ class LectureService
     ";
 
         $items = DB::select($query);
-        $this->scheduleLectureJobs($items);
 
         return $items;
     }
 
     public function attendanceQuery($scheduleId)
     {
+        // هجيب بيانات الغياب لمحاضرة واحدة
         $query = "
         SELECT
             t.id AS trainee_id,
@@ -331,6 +332,7 @@ class LectureService
 
     public function attendanceByScheduleIds(array $scheduleIds): array
     {
+        // هشيل الأرقام المكررة
         $scheduleIds = array_values(array_unique(array_map('intval', $scheduleIds)));
 
         if ($scheduleIds === []) {
@@ -380,64 +382,9 @@ class LectureService
         return $attendanceBySchedule;
     }
 
-    private function scheduleLectureJobs($items): void
-    {
-        $endGroups = [];
-        foreach ($items as $item) {
-
-            if ($item->item_type !== 'lecture') {
-                continue;
-            }
-
-            if (! $item->schedule_id) {
-                continue;
-            }
-
-            if (! $item->date || ! $item->start_time || ! $item->end_time) {
-                continue;
-            }
-
-            $startAt = Carbon::parse(
-                $item->date.' '.$item->start_time
-            );
-
-            $endAt = Carbon::parse(
-                $item->date.' '.$item->end_time
-            );
-
-            $endTime = $endAt->format('Y-m-d H:i:s');
-            $endGroups[$endTime][] = (int) $item->schedule_id;
-
-            $cancelAt = $startAt->copy()->addMinutes(15);
-
-            if ($cancelAt->isFuture()) {
-                CancelNotStartedLectureJob::dispatch(
-                    $item->schedule_id
-                )->delay($cancelAt);
-            }
-
-            $getAttendance = $startAt->copy()->addMinutes(10);
-
-            if ($getAttendance->isFuture()) {
-                GetAttendanceJob::dispatch(
-                    $item->schedule_id
-                )->delay($getAttendance);
-            }
-
-        }
-
-        foreach ($endGroups as $endTime => $scheduleIds) {
-            $endAt = Carbon::parse($endTime);
-            $endJob = EndLectureJob::dispatch($scheduleIds);
-
-            if ($endAt->isFuture()) {
-                $endJob->delay($endAt);
-            }
-        }
-    }
-
     public function getDashboardData(): array
     {
+        // هجهز بيانات الداشبورد وأرتب المحاضرات من الأقرب في البداية
         $items = collect(
             $this->getTodayLecturesAndRooms()
         );
@@ -446,14 +393,36 @@ class LectureService
 
         return [
             'dashboardDate' => now()->format('Y-m-d'),
+            'availableTrainerCount' => $this->getAvailableTrainerCount(),
 
             'lectures' => $dashboard
                 ->where('item_type', 'lecture')
+                ->sortBy('start_time')
                 ->values(),
 
             'availableRooms' => $dashboard
                 ->where('item_type', 'available_room')
                 ->values(),
         ];
+    }
+
+    private function getAvailableTrainerCount(): int
+    {
+        return DB::table('users as u')
+            ->where('u.status', 'active')
+            ->whereIn(DB::raw('LOWER(u.job_title)'), [
+                'trainer',
+                'senior trainer',
+                'instructor',
+                'teacher',
+            ])
+            ->whereNotExists(function ($query): void {
+                $query->selectRaw('1')
+                    ->from('schedules as s')
+                    ->whereColumn('s.trainer_id', 'u.id')
+                    ->whereDate('s.date', today())
+                    ->whereNull('s.deleted_at');
+            })
+            ->count();
     }
 }

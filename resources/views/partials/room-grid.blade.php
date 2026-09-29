@@ -21,11 +21,6 @@
             <i class="fas fa-check" aria-hidden="true"></i>
             Free Today
         </div>
-
-        <div class="room-footer">
-            <i class="fas fa-door-open" aria-hidden="true"></i>
-            Room: {{ $item->room_code }}
-        </div>
     </article>
 @empty
     <div class="empty-card">
