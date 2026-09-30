@@ -28,6 +28,15 @@
                 </div>
             </div>
         </div>
+
+        {{-- Section code: top corner badge of the card --}}
+        <div class="lecture-section" title="Section {{ $item->section_code }}">
+            <i class="fas fa-users" aria-hidden="true"></i>
+
+            <span>
+                {{ $item->section_code }}
+            </span>
+        </div>
     </div>
 
     {{-- Time --}}
@@ -50,13 +59,32 @@
     </div>
 
     {{-- Trainer --}}
+    @php
+        $trainerInitials = '';
+
+        if (($item->trainer_name ?? '-') !== '-') {
+            foreach (array_slice(preg_split('/\s+/', trim((string) $item->trainer_name)), 0, 2) as $trainerWord) {
+                $trainerInitials .= mb_substr($trainerWord, 0, 1);
+            }
+        }
+
+        $trainerInitials = $trainerInitials !== '' ? mb_strtoupper($trainerInitials) : '–';
+    @endphp
+
     <div class="lecture-details">
         <div class="detail-item">
-            <i class="fas fa-user-tie" aria-hidden="true"></i>
+            <span class="detail-avatar" aria-hidden="true">{{ $trainerInitials }}</span>
 
-            <span>
+            <span class="detail-text" title="{{ $item->trainer_name }}">
                 {{ $item->trainer_name }}
             </span>
+
+            @if ((int) ($item->trainee_count ?? 0) > 0)
+                <span class="detail-meta" title="{{ $item->trainee_count }} trainees">
+                    <i class="fas fa-user-graduate" aria-hidden="true"></i>
+                    {{ $item->trainee_count }}
+                </span>
+            @endif
         </div>
     </div>
 
@@ -87,14 +115,6 @@
         <div class="timeline-track" role="progressbar" aria-label="Lecture duration" aria-valuemin="0"
             aria-valuemax="100" aria-valuenow="0">
             <div class="timeline-fill" data-progress style="width: 0%"></div>
-        </div>
-    </div>
-
-    {{-- Footer --}}
-    <div class="lecture-footer">
-        <div>
-            <i class="fas fa-users" aria-hidden="true"></i>
-            {{ $item->section_code }}
         </div>
     </div>
 </div>
