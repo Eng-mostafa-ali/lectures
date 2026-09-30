@@ -23,116 +23,6 @@
 
 <body>
 
-   
-    @php
-        $fitPlan = function (int $count, float $width, float $height, float $gap, array $cfg): array {
-            if ($count < 1 || $width < 1 || $height < 1) {
-                return ['cols' => 1, 'rows' => 1, 'cw' => $width, 'ch' => $height];
-            }
-
-            $best = null;
-            $bestScore = -INF;
-
-            for ($cols = 1; $cols <= $count; $cols++) {
-                $rows = (int) ceil($count / $cols);
-                $cw = ($width - $gap * ($cols - 1)) / $cols;
-                $ch = ($height - $gap * ($rows - 1)) / $rows;
-
-                if ($cw <= 0 || $ch <= 0) {
-                    continue;
-                }
-
-                $fits = $cw >= $cfg['minW'] && $ch >= $cfg['minH'];
-                $aspect = -abs(log(($cw / $ch) / $cfg['target']));
-                $score = $fits
-                    ? 100 + $aspect + min($ch / $cfg['minH'], 2.4) * .8 + min($cw / $cfg['minW'], 2.4) * .2
-                    : min($cw / $cfg['minW'], $ch / $cfg['minH']) * 10;
-
-                if ($score > $bestScore) {
-                    $bestScore = $score;
-                    $best = ['cols' => $cols, 'rows' => $rows, 'cw' => $cw, 'ch' => $ch];
-                }
-            }
-
-            return $best ?: [
-                'cols' => min($count, 4),
-                'rows' => (int) ceil($count / min($count, 4)),
-                'cw' => $width,
-                'ch' => $height,
-            ];
-        };
-
-        $lectureCfg = [
-            'minW' => 128,
-            'minH' => 60,
-            'refW' => 208,
-            'target' => 2.2,
-            'kMin' => .34,
-            'kMax' => 1.12,
-            'tiers' => [
-                ['max' => 90, 'refH' => 92, 'name' => 'ultra'],
-                ['max' => 130, 'refH' => 132, 'name' => 'tight'],
-                ['max' => INF, 'refH' => 163, 'name' => 'normal'],
-            ],
-        ];
-
-        $roomCfg = [
-            'minW' => 100,
-            'minH' => 32,
-            'refW' => 150,
-            'target' => 2.5,
-            'kMin' => .42,
-            'kMax' => 1.2,
-            'tiers' => [
-                ['max' => 40, 'refH' => 50, 'name' => 'ultra'],
-                ['max' => INF, 'refH' => 70, 'name' => 'normal'],
-            ],
-        ];
-
-        /* Nominal canvas: refined by the browser on the next frame. */
-        $canvasW = 1840;
-        $canvasH = 928;
-        $headerCost = 34;
-        $gridGap = 10;
-
-        $lectureCount = max(0, $lectures->count());
-        $roomCount = max(0, $availableRooms->count());
-
-        $lectureShare = .62;
-
-        for ($i = 0; $i < 4; $i++) {
-            $planL = $fitPlan($lectureCount, $canvasW, max(1, $canvasH * $lectureShare - $headerCost), $gridGap, $lectureCfg);
-            $planR = $fitPlan($roomCount, $canvasW, max(1, $canvasH * (1 - $lectureShare) - $headerCost), $gridGap, $roomCfg);
-
-            $needL = $headerCost + $planL['rows'] * $lectureCfg['minH'] + max(0, $planL['rows'] - 1) * $gridGap;
-            $needR = $headerCost + $planR['rows'] * $roomCfg['minH'] + max(0, $planR['rows'] - 1) * $gridGap;
-
-            $lectureShare = min(max($needL / max($needL + $needR, 1), .34), .86);
-        }
-
-        $lecturePlan = $fitPlan($lectureCount, $canvasW, max(1, $canvasH * $lectureShare - $headerCost), $gridGap, $lectureCfg);
-        $roomPlan = $fitPlan($roomCount, $canvasW, max(1, $canvasH * (1 - $lectureShare) - $headerCost), $gridGap, $roomCfg);
-
-        $scaleOf = function (array $plan, array $cfg): array {
-            $tier = $cfg['tiers'][count($cfg['tiers']) - 1];
-
-            foreach ($cfg['tiers'] as $candidate) {
-                if ($plan['ch'] < $candidate['max']) {
-                    $tier = $candidate;
-                    break;
-                }
-            }
-
-            return [
-                'scale' => round(min(max(min($plan['ch'] / $tier['refH'], $plan['cw'] / $cfg['refW']), $cfg['kMin']), $cfg['kMax']), 3),
-                'density' => $tier['name'],
-            ];
-        };
-
-        $lectureFit = $scaleOf($lecturePlan, $lectureCfg);
-        $roomFit = $scaleOf($roomPlan, $roomCfg);
-    @endphp
-
 
 
     <main class="dashboard-wrapper">
@@ -159,12 +49,12 @@
 
             <div class="dashboard-summary" aria-label="Today's availability">
                 <div class="total-badge" id="totalCount" aria-live="polite">
-                    <i class="fas fa-layer-group" aria-hidden="true"></i>
+                    <i class="fas fa-chart-pie" aria-hidden="true"></i>
                     Total: {{ $lectures->count() + $availableRooms->count() }}
                 </div>
 
                 <div class="total-badge">
-                    <i class="fas fa-chalkboard-teacher" aria-hidden="true"></i>
+                    <i class="fas fa-user-tie" aria-hidden="true"></i>
                     Available trainers
                     <strong class="summary-value" id="availableTrainersCount" aria-live="polite">
                         {{ $availableTrainerCount }}
@@ -183,8 +73,7 @@
         </div>
 
         <div class="dashboard-content">
-            <section class="dashboard-section lectures-section"
-                style="flex: {{ round($lectureShare, 4) }} 1 0px;">
+            <section class="dashboard-section lectures-section">
 
                 {{-- =========================================================
          LECTURES HEADER
@@ -194,7 +83,7 @@
 
                     <div class="section-title">
 
-                        <i class="fas fa-chalkboard-teacher" style="color: var(--blue);" aria-hidden="true"></i>
+                        <i class="fas fa-laptop-code" style="color: var(--blue);" aria-hidden="true"></i>
 
                         Today's Lectures
 
@@ -216,10 +105,7 @@
          LECTURES
     ========================================================== --}}
 
-                <div class="lectures-grid" id="lecturesGrid"
-                    data-density="{{ $lectureFit['density'] }}" style="--cols: {{ $lecturePlan['cols'] }};
-                    --rows: {{ $lecturePlan['rows'] }};
-                    --k: {{ $lectureFit['scale'] }};">
+                <div class="lectures-grid" id="lecturesGrid">
 
                     @include('partials.lectures-grid', [
                         'lectures' => $lectures,
@@ -228,8 +114,7 @@
                 </div>
             </section>
 
-            <section class="dashboard-section rooms-section"
-                style="flex: {{ round(1 - $lectureShare, 4) }} 1 0px;">
+            <section class="dashboard-section rooms-section">
 
                 {{-- =========================================================
          AVAILABLE ROOMS
@@ -239,7 +124,7 @@
 
                     <div class="section-title">
 
-                        <i class="fas fa-door-open" style="color: var(--teal);" aria-hidden="true"></i>
+                        <i class="fas fa-compass" style="color: var(--teal);" aria-hidden="true"></i>
 
                         Available Rooms
 
@@ -257,10 +142,7 @@
                 </div>
 
 
-                <div class="rooms-grid" id="roomsGrid" data-density="{{ $roomFit['density'] }}"
-                    style="--cols: {{ $roomPlan['cols'] }};
-                    --rows: {{ $roomPlan['rows'] }};
-                    --rk: {{ $roomFit['scale'] }};">
+                <div class="rooms-grid" id="roomsGrid">
 
                     @include('partials.room-grid', [
                         'availableRooms' => $availableRooms,
@@ -290,7 +172,7 @@
             <div class="modal-header not-started" data-modal-header>
                 <div class="modal-header-left">
                     <div class="modal-icon">
-                        <i class="fas fa-chalkboard-teacher" aria-hidden="true"></i>
+                        <i class="fas fa-graduation-cap" aria-hidden="true"></i>
                     </div>
                     <div>
                         <div class="modal-title" id="lectureModalTitle" data-modal-batch>-</div>

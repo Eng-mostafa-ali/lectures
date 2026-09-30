@@ -391,18 +391,20 @@ class LectureService
 
         $dashboard = $this->getTodayDashboard($items);
 
+        $lectures = $dashboard
+            ->where('item_type', 'lecture')
+            ->sortBy('start_time')
+            ->values();
+
+        $availableRooms = $dashboard
+            ->where('item_type', 'available_room')
+            ->values();
+
         return [
             'dashboardDate' => now()->format('Y-m-d'),
             'availableTrainerCount' => $this->getAvailableTrainerCount(),
-
-            'lectures' => $dashboard
-                ->where('item_type', 'lecture')
-                ->sortBy('start_time')
-                ->values(),
-
-            'availableRooms' => $dashboard
-                ->where('item_type', 'available_room')
-                ->values(),
+            'lectures' => $lectures,
+            'availableRooms' => $availableRooms,
         ];
     }
 

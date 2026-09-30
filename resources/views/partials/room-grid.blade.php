@@ -2,7 +2,7 @@
     <article class="room-card">
         <div class="room-header">
             <div class="room-icon">
-                <i class="fas fa-door-open" aria-hidden="true"></i>
+                <i class="fas fa-cube" aria-hidden="true"></i>
             </div>
 
             <div>
@@ -18,7 +18,7 @@
         </div>
 
         <div class="room-free">
-            <i class="fas fa-check" aria-hidden="true"></i>
+            <i class="fas fa-sparkles" aria-hidden="true"></i>
             Free Today
         </div>
     </article>

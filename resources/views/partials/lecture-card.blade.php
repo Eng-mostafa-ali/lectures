@@ -15,7 +15,7 @@
     <div class="lecture-top">
         <div class="lecture-main">
             <div class="lecture-icon">
-                <i class="fas fa-chalkboard-teacher" aria-hidden="true"></i>
+                <i class="fas fa-graduation-cap" aria-hidden="true"></i>
             </div>
 
             <div class="lecture-info">
@@ -31,7 +31,7 @@
 
         {{-- Section code: top corner badge of the card --}}
         <div class="lecture-section" title="Section {{ $item->section_code }}">
-            <i class="fas fa-users" aria-hidden="true"></i>
+            <i class="fas fa-layer-group" aria-hidden="true"></i>
 
             <span>
                 {{ $item->section_code }}
