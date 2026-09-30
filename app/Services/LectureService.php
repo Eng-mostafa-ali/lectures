@@ -403,9 +403,43 @@ class LectureService
         return [
             'dashboardDate' => now()->format('Y-m-d'),
             'availableTrainerCount' => $this->getAvailableTrainerCount(),
+            'availableTrainers' => $this->getAvailableTrainers(),
             'lectures' => $lectures,
             'availableRooms' => $availableRooms,
         ];
+    }
+
+    public function getAvailableTrainers()
+    {
+        return DB::table('users as u')
+            ->select([
+                'u.id',
+                'u.first_name',
+                'u.last_name',
+                'u.email',
+                'u.job_title',
+            ])
+            ->where('u.status', 'active')
+            ->whereIn(DB::raw('LOWER(u.job_title)'), [
+                'trainer',
+                'senior trainer',
+                'instructor',
+                'teacher',
+            ])
+            ->whereNotExists(function ($query): void {
+                $query->selectRaw('1')
+                    ->from('schedules as s')
+                    ->whereColumn('s.trainer_id', 'u.id')
+                    ->whereDate('s.date', today())
+                    ->whereNull('s.deleted_at');
+            })
+            ->orderBy('u.first_name')
+            ->orderBy('u.last_name')
+            ->get()
+            ->map(function ($trainer) {
+                $trainer->full_name = trim(($trainer->first_name ?? '').' '.($trainer->last_name ?? '')) ?: 'Trainer';
+                return $trainer;
+            });
     }
 
     private function getAvailableTrainerCount(): int

@@ -1750,4 +1750,229 @@
             transform: none;
         }
     }
+
+    /* ==========================================================
+       AVAILABLE TRAINERS MODAL & BADGE
+    ========================================================== */
+    .trainer-badge-btn {
+        cursor: pointer;
+        user-select: none;
+        outline: none;
+    }
+
+    .trainer-badge-btn:hover {
+        border-color: #84cc16;
+        box-shadow: 0 4px 12px rgba(132, 204, 22, 0.2);
+        transform: translateY(-2px);
+    }
+
+    .trainers-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+        background: rgba(15, 23, 42, 0.45);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+    }
+
+    .trainers-modal.active {
+        display: flex;
+    }
+
+    .trainers-modal-panel {
+        width: min(520px, 100%);
+        max-height: 85vh;
+        display: flex;
+        flex-direction: column;
+        background: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.2), 0 0 0 1px var(--line);
+        overflow: hidden;
+        animation: trainerModalPop .22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes trainerModalPop {
+        from {
+            opacity: 0;
+            transform: scale(0.95) translateY(8px);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+    }
+
+    .trainers-modal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 20px;
+        background: #ffffff;
+        border-bottom: 1px solid var(--line);
+        position: relative;
+    }
+
+    .trainers-modal-header::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, #84cc16, #14b8a6);
+    }
+
+    .trainers-modal-title-wrap {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .trainers-modal-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: var(--brand-lime-soft);
+        border: 1px solid var(--brand-lime-border);
+        color: #4d7c0f;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+    }
+
+    .trainers-modal-title {
+        font-size: 16px;
+        font-weight: 800;
+        color: #0f172a;
+        margin: 0;
+        line-height: 1.2;
+    }
+
+    .trainers-modal-subtitle {
+        font-size: 11.5px;
+        font-weight: 600;
+        color: var(--muted);
+        margin-top: 2px;
+    }
+
+    .trainers-modal-body {
+        flex: 1;
+        overflow-y: auto;
+        padding: 16px 20px;
+        background: #f8fafc;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .trainer-card-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 12px 14px;
+        background: #ffffff;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+        transition: all 0.2s ease;
+    }
+
+    .trainer-card-item:hover {
+        border-color: #84cc16;
+        box-shadow: 0 3px 8px rgba(132, 204, 22, 0.12);
+        transform: translateY(-1px);
+    }
+
+    .trainer-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 0;
+    }
+
+    .trainer-avatar {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+        border: 1px solid #bbf7d0;
+        color: #15803d;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        font-weight: 800;
+        flex-shrink: 0;
+    }
+
+    .trainer-details {
+        min-width: 0;
+    }
+
+    .trainer-name {
+        font-size: 13.5px;
+        font-weight: 700;
+        color: #0f172a;
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .trainer-email {
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--muted);
+        margin-top: 2px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .trainer-email a {
+        color: var(--ink-soft);
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+
+    .trainer-email a:hover {
+        color: var(--brand-teal);
+        text-decoration: underline;
+    }
+
+    .trainer-badge-tag {
+        font-size: 10.5px;
+        font-weight: 700;
+        padding: 3px 8px;
+        background: #ecfdf5;
+        border: 1px solid #a7f3d0;
+        color: #047857;
+        border-radius: 999px;
+        white-space: nowrap;
+        text-transform: capitalize;
+    }
+
+    .trainers-empty {
+        text-align: center;
+        padding: 30px 10px;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .trainers-empty i {
+        font-size: 28px;
+        color: #cbd5e1;
+        margin-bottom: 8px;
+        display: block;
+    }
 </style>

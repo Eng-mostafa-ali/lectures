@@ -53,13 +53,13 @@
                     Total: {{ $lectures->count() + $availableRooms->count() }}
                 </div>
 
-                <div class="total-badge">
+                <button type="button" class="total-badge trainer-badge-btn" id="openTrainersModal" aria-label="View available trainers" title="Click to view available trainers">
                     <i class="fas fa-user-tie" aria-hidden="true"></i>
                     Available trainers
                     <strong class="summary-value" id="availableTrainersCount" aria-live="polite">
                         {{ $availableTrainerCount }}
                     </strong>
-                </div>
+                </button>
 
                 <div class="total-badge">
                     <i class="fas fa-door-open" aria-hidden="true"></i>
@@ -591,8 +591,61 @@
 
 
     </div>
-
-
+    
+    {{-- =========================================================
+         AVAILABLE TRAINERS MODAL
+    ========================================================== --}}
+    <div class="trainers-modal" id="trainersModal" role="dialog" aria-modal="true" aria-labelledby="trainersModalTitle" aria-hidden="true">
+        <div class="trainers-modal-panel">
+            <div class="trainers-modal-header">
+                <div class="trainers-modal-title-wrap">
+                    <div class="trainers-modal-icon">
+                        <i class="fas fa-user-tie" aria-hidden="true"></i>
+                    </div>
+                    <div>
+                        <h2 class="trainers-modal-title" id="trainersModalTitle">Available Trainers</h2>
+                        <div class="trainers-modal-subtitle">
+                            {{ $availableTrainers->count() }} active trainer(s) free today
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="modal-close" id="closeTrainersModal" aria-label="Close available trainers">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
+            
+            <div class="trainers-modal-body" id="trainersModalBody">
+                @forelse($availableTrainers as $trainer)
+                    <div class="trainer-card-item">
+                        <div class="trainer-info">
+                            <div class="trainer-avatar">
+                                {{ strtoupper(mb_substr($trainer->first_name ?? 'T', 0, 1)) }}
+                            </div>
+                            <div class="trainer-details">
+                                <h3 class="trainer-name">{{ $trainer->full_name }}</h3>
+                                <div class="trainer-email">
+                                    <i class="far fa-envelope" aria-hidden="true"></i>
+                                    @if(!empty($trainer->email))
+                                        <a href="mailto:{{ $trainer->email }}">{{ $trainer->email }}</a>
+                                    @else
+                                        <span>No email recorded</span>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <span class="trainer-badge-tag">
+                            {{ $trainer->job_title ?? 'Trainer' }}
+                        </span>
+                    </div>
+                @empty
+                    <div class="trainers-empty">
+                        <i class="fas fa-user-clock"></i>
+                        No available trainers found today.
+                    </div>
+                @endforelse
+            </div>
+        </div>
+    </div>
 
     <script>
         /* ============================================================
@@ -601,6 +654,9 @@
 
         const lectureModal = document.getElementById('lectureModal');
         const closeLectureModal = document.getElementById('closeLectureModal');
+        const trainersModal = document.getElementById('trainersModal');
+        const openTrainersModal = document.getElementById('openTrainersModal');
+        const closeTrainersModal = document.getElementById('closeTrainersModal');
         let selectedLecture = null;
         let lastFocusedLecture = null;
         let attendanceBySchedule = {};
@@ -2048,6 +2104,41 @@
             );
         }
 
+        /* TRAINERS MODAL HANDLERS */
+        function openTrainers() {
+            if (trainersModal) {
+                trainersModal.classList.add('active');
+                trainersModal.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeTrainers() {
+            if (trainersModal) {
+                trainersModal.classList.remove('active');
+                trainersModal.setAttribute('aria-hidden', 'true');
+                if (!lectureModal || !lectureModal.classList.contains('active')) {
+                    document.body.style.overflow = '';
+                }
+            }
+        }
+
+        if (openTrainersModal) {
+            openTrainersModal.addEventListener('click', openTrainers);
+        }
+
+        if (closeTrainersModal) {
+            closeTrainersModal.addEventListener('click', closeTrainers);
+        }
+
+        if (trainersModal) {
+            trainersModal.addEventListener('click', function(event) {
+                if (event.target === trainersModal) {
+                    closeTrainers();
+                }
+            });
+        }
+
 
         lectureModal.addEventListener(
             'click',
@@ -2075,6 +2166,7 @@
                 ) {
 
                     closeModal();
+                    closeTrainers();
                 }
 
             }
