@@ -18,9 +18,9 @@
         --blue-soft: #eef7ff;
         --blue-line: #cfe7ff;
         --blue-strong: #1769aa;
-        --danger: #dc3545;
+        --danger: #ea5656;
         --danger-soft: #fff2f3;
-        --not-started-bg: #a6a6a6;
+        --not-started-bg: #eaeaea;
         --shadow-card: 0 10px 24px rgba(16, 47, 94, .08);
         --shadow-card-hover: 0 14px 30px rgba(16, 47, 94, .14);
         --radius-card: 10px;
@@ -329,7 +329,7 @@
         overflow: hidden;
         color: inherit;
         font-size: calc(8.5px * var(--k, 1));
-        font-weight: 700;
+        font-weight: 400;
         opacity: .82;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -361,7 +361,7 @@
         background: var(--blue-soft);
         color: var(--ink);
         font-size: calc(9px * var(--k, 1));
-        font-weight: 800;
+        font-weight: 400;
         line-height: 1.25;
     }
 
@@ -408,7 +408,7 @@
         background: var(--blue-soft);
         color: var(--ink);
         font-size: calc(10.5px * var(--k, 1));
-        font-weight: 800;
+        font-weight: 400;
     }
 
     .lecture-not-started .lecture-time {
@@ -463,7 +463,7 @@
         gap: calc(5px * var(--k, 1));
         color: inherit;
         font-size: calc(9.5px * var(--k, 1));
-        font-weight: 700;
+        font-weight: 400;
         line-height: 1.15;
     }
 
@@ -477,7 +477,7 @@
         background: var(--blue-soft);
         color: var(--blue);
         font-size: max(5.5px, calc(7px * var(--k, 1)));
-        font-weight: 800;
+        font-weight: 600;
         letter-spacing: .02em;
         line-height: 1;
     }
@@ -498,7 +498,7 @@
         padding-inline-start: calc(6px * var(--k, 1));
         color: var(--muted);
         font-size: calc(8.5px * var(--k, 1));
-        font-weight: 800;
+        font-weight: 400;
         font-variant-numeric: tabular-nums;
         white-space: nowrap;
     }
@@ -544,7 +544,7 @@
         margin-bottom: calc(3px * var(--k, 1));
         color: var(--muted);
         font-size: calc(8.5px * var(--k, 1));
-        font-weight: 800;
+        font-weight: 400;
         letter-spacing: .02em;
         line-height: 1.1;
         text-transform: uppercase;
@@ -614,7 +614,7 @@
         margin-bottom: calc(2px * var(--k, 1));
         color: var(--muted);
         font-size: calc(8.5px * var(--k, 1));
-        font-weight: 800;
+        font-weight: 400;
         line-height: 1.1;
     }
 
