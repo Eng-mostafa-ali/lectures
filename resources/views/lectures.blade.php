@@ -50,13 +50,17 @@
         ========================================================== */
 
         .dashboard-wrapper {
-
             width: 100%;
-
-            padding:
-                28px 30px 50px;
+            height: 100vh !important;
+            max-height: 100vh !important;
+            padding: 12px 20px !important;
+            /* تقليل البادنج لمنح مساحة للمحتوى */
+            box-sizing: border-box;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: space-between !important;
+            overflow: hidden !important;
         }
-
 
         /* =========================================================
            HEADER
@@ -177,14 +181,13 @@
         ========================================================== */
 
         .lectures-grid {
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(auto-fill,
-                    minmax(330px, 1fr));
-
-            gap: 18px;
+            display: flex !important;
+            /* استخدام flex بدلاً من grid لمنع نزول الكروت لسطر جديد */
+            flex-wrap: nowrap !important;
+            /* منع التفاف الكروت لأسفل */
+            gap: 10px !important;
+            width: 100% !important;
+            overflow: hidden !important;
         }
 
 
@@ -193,29 +196,18 @@
         ========================================================== */
 
         .lecture-card {
-
-            position: relative;
-
-            min-height: 250px;
-
-            padding: 18px;
-
-            border-radius: 10px;
-
-            cursor: pointer;
-
-            overflow: hidden;
-
-            border:
-                1px solid rgba(0, 0, 0, .08);
-
-            box-shadow:
-                0 4px 12px rgba(0, 0, 0, .06);
-
-            transition:
-                transform .2s ease,
-                box-shadow .2s ease,
-                background .25s ease;
+            flex: 1 1 0 !important;
+            /* توزيع المحاضرات متساوية في الصف */
+            min-width: 0 !important;
+            height: calc(52vh - 60px) !important;
+            /* ارتفاع يتناسب تلقائياً مع ارتفاع الشاشة */
+            max-height: 160px !important;
+            padding: 10px !important;
+            border-radius: 8px !important;
+            box-sizing: border-box !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: space-between !important;
         }
 
         .lecture-card:hover {
@@ -448,42 +440,12 @@
         ========================================================== */
 
         .lecture-times {
-
-            display:
-                grid;
-
-            grid-template-columns:
-                1fr 1fr;
-
-            gap:
-                10px;
-
-            margin-top:
-                15px;
+            margin-top: 10px;
         }
 
         .time-item {
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            gap:
-                6px;
-
-            padding:
-                8px 9px;
-
-            border-radius:
-                6px;
-
-            font-size:
-                10px;
-
-            font-weight:
-                700;
+            padding: 4px 6px;
+            font-size: 10px;
         }
 
         .lecture-not-started .time-item {
@@ -587,24 +549,9 @@
         ========================================================== */
 
         .lecture-footer {
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            gap:
-                18px;
-
-            margin-top:
-                15px;
-
-            padding-top:
-                11px;
-
-            border-top:
-                1px solid rgba(127, 127, 127, .25);
+            margin-top: auto;
+            padding-top: 8px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .footer-item {
@@ -631,37 +578,29 @@
         ========================================================== */
 
         .rooms-grid {
-
-            display:
-                grid;
-
-            grid-template-columns:
-                repeat(auto-fill,
-                    minmax(220px, 1fr));
-
-            gap:
-                16px;
+            display: flex !important;
+            flex-wrap: nowrap !important;
+            /* منع التفاف كروت القاعات لأسفل */
+            gap: 10px !important;
+            width: 100% !important;
+            margin-top: 5px !important;
         }
 
         .room-card {
-
-            min-height:
-                150px;
-
-            padding:
-                16px;
-
-            background:
-                #ffffff;
-
-            border:
-                1px dashed #1bc5bd;
-
-            border-radius:
-                10px;
-
-            transition:
-                .2s ease;
+            flex: 1 1 0 !important;
+            /* احتواء القاعات في صف واحد */
+            min-width: 0 !important;
+            background: #ffffff !important;
+            border: 1px dashed #1bc5bd !important;
+            border-radius: 8px !important;
+            padding: 6px 10px !important;
+            height: 65px !important;
+            /* ارتفاع مدمج وثابت للقاعات */
+            max-height: 65px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: space-between !important;
+            box-sizing: border-box !important;
         }
 
         .room-card:hover {
@@ -674,111 +613,56 @@
         }
 
         .room-header {
-
-            display:
-                flex;
-
-            align-items:
-                center;
+            display: flex !important;
+            align-items: center !important;
+            gap: 6px !important;
         }
 
         .room-icon {
-
-            width:
-                42px;
-
-            height:
-                42px;
-
-            min-width:
-                42px;
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                center;
-
-            margin-right:
-                10px;
-
-            background:
-                #1bc5bd;
-
-            border-radius:
-                7px;
+            width: 28px !important;
+            height: 28px !important;
+            min-width: 28px !important;
+            background: #1bc5bd !important;
+            border-radius: 5px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            flex-shrink: 0 !important;
         }
 
         .room-icon i {
-
-            color:
-                #ffffff;
-
-            font-size:
-                19px;
+            color: #ffffff !important;
+            font-size: 13px !important;
         }
 
         .room-code {
-
-            font-size:
-                13px;
-
-            font-weight:
-                800;
-
-            color:
-                #172b4d;
+            font-size: 11px !important;
+            font-weight: 800 !important;
+            color: #172b4d !important;
+            white-space: nowrap !important;
         }
 
         .room-status {
-
-            margin-top:
-                3px;
-
-            color:
-                #1bc5bd;
-
-            font-size:
-                10px;
-
-            font-weight:
-                700;
-        }
-
-        .room-free {
-
-            margin-top:
-                18px;
-
-            font-size:
-                10px;
-
-            font-weight:
-                700;
-
-            color:
-                #172b4d;
+            font-size: 9px !important;
+            font-weight: 700 !important;
+            color: #1bc5bd !important;
         }
 
         .room-footer {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            padding-top: 2px !important;
+        }
 
-            margin-top:
-                15px;
-
-            padding-top:
-                10px;
-
-            border-top:
-                1px solid #e4e7ec;
-
-            font-size:
-                9px;
-
-            color:
-                #7a869a;
+        .room-free {
+            font-size: 8px !important;
+            font-weight: 700 !important;
+            color: #172b4d !important;
+            background: #e8f8f5 !important;
+            padding: 2px 4px !important;
+            border-radius: 3px !important;
+            white-space: nowrap !important;
         }
 
 
@@ -1947,6 +1831,16 @@
                     flex-start;
             }
         }
+
+        @media (min-width: 1800px) {
+            .lectures-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+
+            .rooms-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            }
+        }
     </style>
 
     <style>
@@ -2067,10 +1961,10 @@
 
         .lectures-grid {
             display: grid;
-            grid-template-columns: repeat(6, minmax(0, 1fr));
-            align-items: start;
-            max-width: none;
-            gap: 18px;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            align-items: start !important;
+            margin-bottom: 40px;
         }
 
         @media (max-width: 1600px) {
@@ -2097,7 +1991,7 @@
             gap: 16px;
         }
 
-        .lecture-card {
+        /* .lecture-card {
             min-height: 0;
             padding: 20px;
             border: 1px solid var(--line);
@@ -2106,6 +2000,25 @@
             color: var(--ink);
             box-shadow: var(--shadow-card);
             transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+        } */
+
+        .lecture-card {
+            position: relative;
+            height: 190px !important;
+            /* ارتفاع ثابت ومناسب لجميع محتويات الكارت */
+            max-height: 190px !important;
+            /* ضمان عدم التمدد تحت أي ظرف */
+            padding: 14px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-sizing: border-box;
         }
 
         .lecture-card:hover {
@@ -2460,12 +2373,17 @@
         }
 
         .room-card {
-            min-height: 150px;
-            padding: 16px;
-            border: 1px dashed var(--teal);
-            border-radius: var(--radius-card);
-            background: var(--surface);
-            box-shadow: none;
+            background: #ffffff !important;
+            border: 1px dashed #1bc5bd !important;
+            border-radius: 8px !important;
+            padding: 0.8vh 0.8vw !important;
+            height: 9vh !important;
+            /* ارتفاع متناسب تلقائياً مع حجم الشاشة */
+            max-height: 80px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: space-between !important;
+            box-sizing: border-box !important;
         }
 
         .room-card:hover {
@@ -2474,40 +2392,57 @@
         }
 
         .room-header {
-            gap: 0;
+            display: flex !important;
+            align-items: center !important;
+            gap: 0.6vw !important;
         }
 
         .room-icon {
-            width: 42px;
-            height: 42px;
-            min-width: 42px;
-            margin-right: 10px;
-            border-radius: 7px;
-            background: var(--teal);
+            width: 2.2vw !important;
+            height: 2.2vw !important;
+            min-width: 28px !important;
+            min-height: 28px !important;
+            max-width: 36px !important;
+            max-height: 36px !important;
+            background: #1bc5bd !important;
+            border-radius: 6px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            flex-shrink: 0 !important;
+        }
+
+        .room-icon i {
+            color: #ffffff !important;
+            font-size: 0.9rem !important;
         }
 
         .room-code {
-            color: var(--ink);
-            font-size: 13px;
+            font-size: clamp(10px, 0.85rem, 14px) !important;
+            font-weight: 800 !important;
+            color: #172b4d !important;
         }
 
         .room-status {
-            color: var(--teal-ink);
-            font-size: 10px;
-        }
-
-        .room-free {
-            margin-top: 18px;
-            color: var(--ink);
-            font-size: 10px;
+            font-size: clamp(8px, 0.7rem, 11px) !important;
+            font-weight: 700 !important;
+            color: #1bc5bd !important;
         }
 
         .room-footer {
-            margin-top: 15px;
-            padding-top: 10px;
-            border-top: 1px solid var(--line);
-            color: var(--muted);
-            font-size: 9px;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            padding-top: 0.3vh !important;
+        }
+
+        .room-free {
+            font-size: clamp(8px, 0.65rem, 10px) !important;
+            font-weight: 700 !important;
+            color: #172b4d !important;
+            background: #e8f8f5 !important;
+            padding: 2px 6px !important;
+            border-radius: 4px !important;
         }
 
         .empty-card {
@@ -2557,12 +2492,25 @@
             }
 
             .lectures-grid {
-                max-width: none;
-                grid-template-columns: 1fr;
+                display: grid !important;
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)) !important;
+                gap: 1vh 1vw !important;
+                align-items: stretch !important;
+                flex: 1;
+                /* يأخذ المساحة المتاحة له ديناميكياً */
             }
 
-            .rooms-grid {
+            /* .rooms-grid {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
+            } */
+
+            .rooms-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 14px;
+                align-items: start !important;
+                margin-top: 15px;
+                clear: both;
             }
 
             .lecture-details {
@@ -2593,11 +2541,23 @@
             }
 
             .rooms-grid {
-                grid-template-columns: 1fr;
+                display: grid !important;
+                grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)) !important;
+                gap: 1vh 1vw !important;
+                align-items: center !important;
+                flex: 0 0 auto;
             }
 
             .lecture-card {
-                padding: 16px;
+                height: 100% !important;
+                max-height: 22vh !important;
+                /* تحديد الارتفاع بنسبة من ارتفاع الشاشة */
+                padding: 1vh 1vw !important;
+                border-radius: 8px;
+                box-sizing: border-box;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: space-between !important;
             }
 
             .lecture-top {
@@ -3124,11 +3084,9 @@
         }
 
         .lecture-card {
-            height: var(--lecture-card-height);
-            min-height: var(--lecture-card-height);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
+            height: 190px !important;
+            max-height: 190px !important;
+            box-sizing: border-box;
         }
 
         .lecture-top,
@@ -3469,12 +3427,15 @@
 
         .dashboard-wrapper {
             width: 100%;
-            height: calc(100dvh - 10px);
-            min-height: 0;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            padding: 16px 22px;
+            height: 100vh !important;
+            max-height: 100vh !important;
+            padding: 1.5vh 2vw !important;
+            /* حواشي متكيفة برؤية الشاشة */
+            box-sizing: border-box;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: space-between !important;
+            overflow: hidden !important;
         }
 
         .dashboard-header {
@@ -3647,6 +3608,24 @@
         }
     </style>
 
+
+    <style>
+        html,
+        body {
+            height: 100vh !important;
+            max-height: 100vh !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            overflow: hidden !important;
+            /* منع السكرول نهائياً */
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow-y: auto !important;
+            /* السماح بالسكرول في الصفحة بالكامل */
+        }
+    </style>
 </head>
 
 
@@ -4228,8 +4207,8 @@
 
     <script>
         /* ============================================================
-                       VARIABLES
-                    ============================================================ */
+                           VARIABLES
+                        ============================================================ */
 
         const lectureModal = document.getElementById('lectureModal');
         const closeLectureModal = document.getElementById('closeLectureModal');
