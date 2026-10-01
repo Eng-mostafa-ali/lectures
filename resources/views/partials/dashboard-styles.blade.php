@@ -332,11 +332,22 @@
 
 
         margin: 0 !important;
-        
+
         transition: transform .22s cubic-bezier(0.16, 1, 0.3, 1),
             box-shadow .22s ease,
             border-color .22s ease,
             background .22s ease;
+    }
+
+
+    .lectures-grid:has(.lecture-card:nth-child(-n+3):last-child) {
+        grid-template-columns: repeat(auto-fill, 230px);
+        justify-content: start;
+        align-items: start;
+    }
+
+    .lectures-grid:has(.lecture-card:nth-child(-n+3):last-child) .lecture-card {
+        height: 150px !important;
     }
 
     .lectures-container {
@@ -945,6 +956,17 @@
         grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
         align-items: start;
         justify-content: start;
+    }
+
+    .rooms-grid:has(.room-card:nth-child(-n+4):last-child) {
+        grid-template-columns: repeat(auto-fill, 250px);
+        justify-content: start;
+        align-items: start;
+    }
+
+    .rooms-grid:has(.room-card:nth-child(-n+4):last-child) .room-card {
+        height: 100px !important;
+        min-height: auto !important;
     }
 
     .room-card:hover {
