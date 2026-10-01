@@ -119,7 +119,7 @@
         flex-direction: column;
         gap: clamp(6px, 1vh, 12px);
         overflow: hidden;
-        background: #e8ecf2;
+        background: radial-gradient(circle at 16% 2%,rgba(24,168,117,.12),transparent 25rem),radial-gradient(circle at 88% 0%,rgba(30,99,199,.14),transparent 31rem),linear-gradient(180deg,#fbfdff,#f6faff 46%,#fff);
     }
 
     .dashboard-header {
@@ -322,7 +322,7 @@
         gap: calc(4px * var(--k, 1));
         overflow: hidden;
         background: #ffffff;
-        border: 1px solid var(--line);
+        border: 0.5px solid var(--line);
         border-radius: clamp(6px, calc(11px * var(--k, 1)), 12px);
         box-shadow: var(--shadow-card);
         color: var(--ink);
@@ -360,28 +360,28 @@
     /* --- states ------------------------------------------ */
     /* 1. NOT STARTED (White card with prominent dark slate border & accents) */
     .lecture-not-started {
-        background: #ffffff;
-        border: 1.5px solid #334155;
-        color: #0f172a;
-        box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
+        background: linear-gradient(180deg, #d5e2f0 0%, #ffffff 60%);
+        /* border: 0.5px solid #334155; */
+        color: #123f86;
+        box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
     }
     .lecture-not-started::before {
-        background: #0f172a;
-        height: calc(4px * var(--k, 1));
+        /* background: #123f86; */
+        /* height: calc(3px * var(--k, 1)); */
     }
     .lecture-not-started:hover {
-        border-color: #0f172a;
-        box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+        /* border-color: #123f86; */
+        /* box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12); */
     }
 
     /* 2. IN PROGRESS */
     .lecture-in-progress {
-        background: linear-gradient(180deg, #f0fdfa 0%, #ffffff 60%);
-        border-color: var(--brand-teal-light);
+        background: linear-gradient(180deg, #bcf5e7 0%, #ffffff 60%);
+        /* border-color: var(--brand-teal-light); */
         box-shadow: 0 4px 14px rgba(13, 148, 136, 0.12), 0 1px 3px rgba(0, 0, 0, 0.04);
     }
     .lecture-in-progress::before {
-        background: linear-gradient(90deg, #14b8a6, #84cc16);
+        /* background: linear-gradient(90deg, #14b8a6, #84cc16); */
     }
     .lecture-in-progress:hover {
         border-color: var(--brand-teal);
@@ -390,12 +390,12 @@
 
     /* 3. WAITING (Action Needed - Vibrant Red/Coral) */
     .lecture-waiting {
-        background: var(--status-waiting-bg);
-        border-color: var(--status-waiting-border);
+         background: linear-gradient(180deg, #e05f68 0%, #ffffff 60%);
+        /* border-color: var(--status-waiting-border); */
         box-shadow: 0 4px 14px rgba(244, 63, 94, 0.15);
     }
     .lecture-waiting::before {
-        background: linear-gradient(90deg, #f43f5e, #fb7185);
+        /* background: linear-gradient(90deg, #f43f5e, #fb7185); */
     }
     .lecture-waiting:hover {
         border-color: #e11d48;
@@ -404,17 +404,17 @@
 
     /* 4. CANCELLED (Deep Crimson Red) */
     .lecture-cancelled {
-        background: var(--status-cancelled-bg);
-        border-color: var(--status-cancelled-border);
-        box-shadow: 0 4px 14px rgba(239, 68, 68, 0.12);
+        background: linear-gradient(180deg, #e05f68 0%, #ffffff 60%);
+        /* border-color: var(--status-cancelled-border); */
+        box-shadow: 0 4px 14px rgba(233, 50, 50, 0.12);
         opacity: 0.92;
     }
     .lecture-cancelled::before {
-        background: linear-gradient(90deg, #dc2626, #ef4444);
+        /* background: linear-gradient(90deg, #dc2626, #ef4444); */
     }
     .lecture-cancelled:hover {
-        border-color: #b91c1c;
-        box-shadow: 0 8px 22px rgba(239, 68, 68, 0.2);
+        /* border-color: #b91c1c; */
+        /* box-shadow: 0 8px 22px rgba(239, 68, 68, 0.2); */
     }
 
     /* 5. FINISHED */
@@ -467,7 +467,7 @@
         border-color: #cbd5e1;
     }
     .lecture-not-started .lecture-icon i {
-        color: #334155;
+        color: #123f86;
     }
 
     .lecture-waiting .lecture-icon {
@@ -607,35 +607,35 @@
         margin-top: calc(7px * var(--k, 1));
         padding: calc(5px * var(--k, 1)) calc(8px * var(--k, 1));
         border-radius: calc(7px * var(--k, 1));
-        background: #f8fafc;
-        border: 1px solid var(--line);
+        /* background: #f8fafc; */
+        /* border: 1px solid var(--line); */
         color: #334155;
         font-size: calc(10px * var(--k, 1));
         font-weight: 600;
     }
 
     .lecture-not-started .lecture-time {
-        background: #f8fafc;
+        /* background: #f8fafc; */
         border-color: #e2e8f0;
         color: #1e293b;
     }
 
     .lecture-in-progress .lecture-time {
-        background: #f0fdfa;
-        border-color: var(--brand-teal-border);
-        color: #0f766e;
+        /* background: #f0fdfa; */
+        /* border-color: var(--brand-teal-border); */
+        /* color: #0f766e; */
     }
 
     .lecture-waiting .lecture-time {
-        background: #fff1f2;
-        border-color: #fecdd3;
-        color: #9f1239;
+        /* background: #fff1f2; */
+        /* border-color: #fecdd3; */
+        /* color: #9f1239; */
     }
 
     .lecture-cancelled .lecture-time {
-        background: #fef2f2;
-        border-color: #fecaca;
-        color: #991b1b;
+        /* background: #fef2f2; */
+        /* border-color: #fecaca; */
+        /* color: #991b1b; */
     }
 
     .time-block {
@@ -685,7 +685,7 @@
         align-items: center;
         margin-top: calc(5px * var(--k, 1));
         padding-top: calc(4px * var(--k, 1));
-        border-top: 1px solid var(--line);
+        /* border-top: 1px solid var(--line); */
     }
 
     .lecture-not-started .lecture-details {
@@ -887,12 +887,12 @@
         padding: calc(8px * var(--rk, 1)) calc(10px * var(--rk, 1));
         display: flex;
         flex-direction: column;
-        align-items: center;
+        /* align-items: center; */
         justify-content: space-between;
         gap: calc(4px * var(--rk, 1));
         overflow: hidden;
-        background: #ffffff;
-        border: 1px dashed #14b8a6;
+        background: linear-gradient(180deg, #bcf5e7 0%, #ffffff 100%);
+        /* border: 1px solid #14b8a6; */
         border-radius: clamp(6px, calc(9px * var(--rk, 1)), 10px);
         box-shadow: var(--shadow-card);
         line-height: 1.15;
@@ -901,8 +901,8 @@
 
     .room-card:hover {
         transform: translateY(-2px);
-        border-color: #65a30d;
-        border-style: solid;
+        /* border-color: #65a30d; */
+        /* border-style: solid; */
         box-shadow: 0 8px 20px rgba(20, 184, 166, 0.12);
     }
 
@@ -963,10 +963,10 @@
         max-width: 100%;
         flex: 0 0 auto;
         padding: calc(2px * var(--rk, 1)) calc(8px * var(--rk, 1));
-        background: var(--brand-lime-soft);
-        border: 1px solid var(--brand-lime-border);
+        /* background: var(--brand-lime-soft); */
+        /* border: 1px solid var(--brand-lime-border); */
         border-radius: 999px;
-        color: #4d7c0f;
+        /* color: #4d7c0f; */
         font-size: calc(9px * var(--rk, 1));
         font-weight: 800;
         overflow: hidden;

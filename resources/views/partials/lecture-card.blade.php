@@ -73,7 +73,7 @@
 
     <div class="lecture-details">
         <div class="detail-item">
-            <span class="detail-avatar" aria-hidden="true">{{ $trainerInitials }}</span>
+            {{-- <span class="detail-avatar" aria-hidden="true">{{ $trainerInitials }}</span> --}}
 
             <span class="detail-text" title="{{ $item->trainer_name }}">
                 {{ $item->trainer_name }}

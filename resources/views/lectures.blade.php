@@ -623,14 +623,14 @@
                             </div>
                             <div class="trainer-details">
                                 <h3 class="trainer-name">{{ $trainer->full_name }}</h3>
-                                <div class="trainer-email">
+                                {{-- <div class="trainer-email">
                                     <i class="far fa-envelope" aria-hidden="true"></i>
                                     @if(!empty($trainer->email))
                                         <a href="mailto:{{ $trainer->email }}">{{ $trainer->email }}</a>
                                     @else
                                         <span>No email recorded</span>
                                     @endif
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                         <span class="trainer-badge-tag">
