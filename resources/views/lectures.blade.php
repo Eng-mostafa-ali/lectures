@@ -83,20 +83,20 @@
 
                     <div class="section-title">
 
-                        <i class="fas fa-laptop-code" style="color: var(--blue);" aria-hidden="true"></i>
+                        <i class="fas fa-compass" style="color: var(--teal);" aria-hidden="true"></i>
 
-                        Today's Lectures
-
-                    </div>
-
-
-                    <div class="section-count" id="lecturesCount" aria-live="polite">
-
-                        {{ $lectures->count() }}
-
-                        Lectures
+                        Available Rooms
 
                     </div>
+
+
+                     {{-- <div class="section-count" id="roomsCount" aria-live="polite">
+
+                        {{ $availableRooms->count() }}
+
+                        Rooms
+
+                    </div>  --}}
 
                 </div>
 
@@ -120,26 +120,26 @@
          AVAILABLE ROOMS
     ========================================================== --}}
 
-                <div class="section-header">
+                {{-- <div class="section-header"> --}}
 
-                    <div class="section-title">
+                    {{-- <div class="section-title">
 
                         <i class="fas fa-compass" style="color: var(--teal);" aria-hidden="true"></i>
 
                         Available Rooms
 
-                    </div>
+                    </div> --}}
 
 
-                    <div class="section-count" id="roomsCount" aria-live="polite">
+                    {{-- <div class="section-count" id="roomsCount" aria-live="polite">
 
                         {{ $availableRooms->count() }}
 
                         Rooms
 
-                    </div>
+                    </div> --}}
 
-                </div>
+                {{-- </div> --}}
 
 
                 <div class="rooms-grid" id="roomsGrid">

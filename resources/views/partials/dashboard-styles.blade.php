@@ -1,4 +1,3 @@
-
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700&display=swap');
 
@@ -6,7 +5,7 @@
         /* Modern Light Theme Palette with High-Contrast Background */
         --bg-deep: #e8ecf2;
         --page-bg: #e8ecf2;
-        
+
         /* Logo Inspired Accents - Refined for Light Mode */
         --brand-teal: #0d9488;
         --brand-teal-light: #14b8a6;
@@ -28,13 +27,13 @@
         --surface-card: #ffffff;
         --surface-hover: #f8fafc;
         --surface-inner: #f1f5f9;
-        
+
         /* Typography */
         --ink: #0f172a;
         --ink-soft: #334155;
         --muted: #64748b;
         --muted-dark: #94a3b8;
-        
+
         /* Borders & Lines */
         --line: #cbd5e1;
         --line-soft: #e2e8f0;
@@ -45,7 +44,7 @@
         --status-not-started-bg: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
         --status-not-started-border: #334155;
         --status-not-started-accent: #94a3b8;
-        
+
         /* 2. Waiting (Overdue start / Delayed): Vibrant Coral-Red Alert */
         --status-waiting-bg: linear-gradient(180deg, #fff1f2 0%, #ffffff 60%);
         --status-waiting-border: #f43f5e;
@@ -119,7 +118,7 @@
         flex-direction: column;
         gap: clamp(6px, 1vh, 12px);
         overflow: hidden;
-        background: radial-gradient(circle at 16% 2%,rgba(24,168,117,.12),transparent 25rem),radial-gradient(circle at 88% 0%,rgba(30,99,199,.14),transparent 31rem),linear-gradient(180deg,#fbfdff,#f6faff 46%,#fff);
+        background: radial-gradient(circle at 16% 2%, rgba(24, 168, 117, .12), transparent 25rem), radial-gradient(circle at 88% 0%, rgba(30, 99, 199, .14), transparent 31rem), linear-gradient(180deg, #fbfdff, #f6faff 46%, #fff);
     }
 
     .dashboard-header {
@@ -229,9 +228,10 @@
         flex: 1 1 0;
         min-height: 0;
         display: flex;
-        flex-direction: column;
+        flex-direction: column-reverse;
         min-width: 0;
         overflow: hidden;
+
     }
 
     .section-header {
@@ -311,10 +311,8 @@
     ========================================================== */
     .lecture-card {
         position: relative;
-        width: 100%;
-        min-width: 0;
-        height: 100%;
-        min-height: 0;
+
+
         padding: calc(9px * var(--k, 1));
         display: flex;
         flex-direction: column;
@@ -328,10 +326,35 @@
         color: var(--ink);
         line-height: 1.15;
         cursor: pointer;
-        transition: transform .22s cubic-bezier(0.16, 1, 0.3, 1), 
-                    box-shadow .22s ease, 
-                    border-color .22s ease, 
-                    background .22s ease;
+        height: auto !important;
+        min-height: max-content;
+        width: 100%;
+
+
+        margin: 0 !important;
+        
+        transition: transform .22s cubic-bezier(0.16, 1, 0.3, 1),
+            box-shadow .22s ease,
+            border-color .22s ease,
+            background .22s ease;
+    }
+
+    .lectures-container {
+
+        display: grid;
+        gap: 16px;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+
+        justify-content: start;
+        align-items: start;
+    }
+
+    .parent-container {
+        display: grid !important;
+        gap: 16px !important;
+        align-items: start !important;
+        justify-content: start !important;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)) !important;
     }
 
     .lecture-card::before {
@@ -365,10 +388,12 @@
         color: #123f86;
         box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
     }
+
     .lecture-not-started::before {
         /* background: #123f86; */
         /* height: calc(3px * var(--k, 1)); */
     }
+
     .lecture-not-started:hover {
         /* border-color: #123f86; */
         /* box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12); */
@@ -380,9 +405,11 @@
         /* border-color: var(--brand-teal-light); */
         box-shadow: 0 4px 14px rgba(13, 148, 136, 0.12), 0 1px 3px rgba(0, 0, 0, 0.04);
     }
+
     .lecture-in-progress::before {
         /* background: linear-gradient(90deg, #14b8a6, #84cc16); */
     }
+
     .lecture-in-progress:hover {
         border-color: var(--brand-teal);
         box-shadow: 0 8px 24px rgba(13, 148, 136, 0.18);
@@ -390,13 +417,15 @@
 
     /* 3. WAITING (Action Needed - Vibrant Red/Coral) */
     .lecture-waiting {
-         background: linear-gradient(180deg, #e05f68 0%, #ffffff 60%);
+        background: linear-gradient(180deg, #e05f68 0%, #ffffff 60%);
         /* border-color: var(--status-waiting-border); */
         box-shadow: 0 4px 14px rgba(244, 63, 94, 0.15);
     }
+
     .lecture-waiting::before {
         /* background: linear-gradient(90deg, #f43f5e, #fb7185); */
     }
+
     .lecture-waiting:hover {
         border-color: #e11d48;
         box-shadow: 0 8px 22px rgba(244, 63, 94, 0.22);
@@ -409,9 +438,11 @@
         box-shadow: 0 4px 14px rgba(233, 50, 50, 0.12);
         opacity: 0.92;
     }
+
     .lecture-cancelled::before {
         /* background: linear-gradient(90deg, #dc2626, #ef4444); */
     }
+
     .lecture-cancelled:hover {
         /* border-color: #b91c1c; */
         /* box-shadow: 0 8px 22px rgba(239, 68, 68, 0.2); */
@@ -423,6 +454,7 @@
         border-color: var(--line);
         opacity: 0.8;
     }
+
     .lecture-finished:hover {
         opacity: 1;
     }
@@ -466,6 +498,7 @@
         background: #f1f5f9;
         border-color: #cbd5e1;
     }
+
     .lecture-not-started .lecture-icon i {
         color: #123f86;
     }
@@ -474,6 +507,7 @@
         background: #ffe4e6;
         border-color: #fecdd3;
     }
+
     .lecture-waiting .lecture-icon i {
         color: #e11d48;
     }
@@ -482,6 +516,7 @@
         background: #fee2e2;
         border-color: #fecaca;
     }
+
     .lecture-cancelled .lecture-icon i {
         color: #dc2626;
     }
@@ -565,6 +600,7 @@
         border-color: #cbd5e1;
         color: #334155;
     }
+
     .lecture-not-started .lecture-section i {
         color: #475569;
     }
@@ -584,6 +620,7 @@
         border-color: #fecdd3;
         color: #be123c;
     }
+
     .lecture-waiting .lecture-section i {
         color: #f43f5e;
     }
@@ -593,6 +630,7 @@
         border-color: #fecaca;
         color: #b91c1c;
     }
+
     .lecture-cancelled .lecture-section i {
         color: #ef4444;
     }
@@ -882,21 +920,31 @@
     .room-card {
         width: 100%;
         min-width: 0;
-        height: 100%;
-        min-height: 0;
+
+        height: auto;
+        min-height: max-content;
+
         padding: calc(8px * var(--rk, 1)) calc(10px * var(--rk, 1));
         display: flex;
         flex-direction: column;
-        /* align-items: center; */
         justify-content: space-between;
         gap: calc(4px * var(--rk, 1));
         overflow: hidden;
         background: linear-gradient(180deg, #bcf5e7 0%, #ffffff 100%);
-        /* border: 1px solid #14b8a6; */
-        border-radius: clamp(6px, calc(9px * var(--rk, 1)), 10px);
+        border: 1px solid #a9ece5;
+        border-radius: clamp(15px, calc(15px * var(--rk, 1)), 10px);
         box-shadow: var(--shadow-card);
         line-height: 1.15;
         transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+        color: var(--ink);
+    }
+
+    .rooms-container {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        align-items: start;
+        justify-content: start;
     }
 
     .room-card:hover {
@@ -1012,6 +1060,7 @@
         from {
             transform: translateX(100%);
         }
+
         to {
             transform: translateX(0);
         }
@@ -1077,6 +1126,7 @@
         background: #fff1f2;
         border-color: #fecdd3;
     }
+
     .modal-header.waiting .modal-icon i {
         color: #e11d48;
     }
@@ -1085,6 +1135,7 @@
         background: #fef2f2;
         border-color: #fecaca;
     }
+
     .modal-header.cancelled .modal-icon i {
         color: #dc2626;
     }
@@ -1331,9 +1382,11 @@
     .attendance-box:nth-child(2) .attendance-number {
         color: var(--brand-teal);
     }
+
     .attendance-box:nth-child(3) .attendance-number {
         color: var(--danger);
     }
+
     .attendance-box:nth-child(4) .attendance-number {
         color: #f43f5e;
     }
@@ -1600,6 +1653,7 @@
         background: #fff1f2;
         border-color: #fecdd3;
     }
+
     .modal-header.waiting+.modal-body .time-summary-icon,
     .modal-header.waiting+.modal-body .time-summary-value {
         color: #e11d48;
@@ -1609,6 +1663,7 @@
         background: #fef2f2;
         border-color: #fecaca;
     }
+
     .modal-header.cancelled+.modal-body .time-summary-icon,
     .modal-header.cancelled+.modal-body .time-summary-value {
         color: #dc2626;
@@ -1736,6 +1791,7 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
+
         .lecture-card,
         .modal-panel,
         .modal-close,
@@ -1800,6 +1856,7 @@
             opacity: 0;
             transform: scale(0.95) translateY(8px);
         }
+
         to {
             opacity: 1;
             transform: scale(1) translateY(0);
