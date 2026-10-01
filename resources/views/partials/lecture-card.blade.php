@@ -95,12 +95,26 @@
                 <span>Attendance</span>
 
                 <span data-attendance-rate>
-                    {{ $item->attendance_percentage_formatted }}%
+                     {{ $item->attendance_percentage_formatted ==0 ? '' : $item->attendance_percentage_formatted."%" }}
                 </span>
             </div>
 
             <div class="attendance-rate-track">
-                <div class="attendance-rate-fill" style="width: {{ $item->attendance_progress }}%"></div>
+                <div class="attendance-rate-fill" style="width: {{ $item->attendance_progress   }}%"></div>
+            </div>
+        </div>
+        @else
+        <div class="lecture-attendance-rate">
+            <div class="attendance-rate-header">
+                <span>Attendance</span>
+
+                <span data-attendance-rate>
+                    {{-- {{ $item->attendance_percentage_formatted }}% --}}
+                </span>
+            </div>
+
+            <div class="attendance-rate-track">
+                {{-- <div class="attendance-rate-fill" style="width: {{ $item->attendance_progress }}%"></div> --}}
             </div>
         </div>
     @endif

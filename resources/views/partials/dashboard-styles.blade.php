@@ -428,7 +428,7 @@
 
     /* 3. WAITING (Action Needed - Vibrant Red/Coral) */
     .lecture-waiting {
-        background: linear-gradient(180deg, #e05f68 0%, #ffffff 60%);
+         background: linear-gradient(180deg, #f39ea4 0%, #ffffff 60%);
         /* border-color: var(--status-waiting-border); */
         box-shadow: 0 4px 14px rgba(244, 63, 94, 0.15);
     }
@@ -444,7 +444,7 @@
 
     /* 4. CANCELLED (Deep Crimson Red) */
     .lecture-cancelled {
-        background: linear-gradient(180deg, #e05f68 0%, #ffffff 60%);
+        background: linear-gradient(180deg, #f39ea4 0%, #ffffff 60%);
         /* border-color: var(--status-cancelled-border); */
         box-shadow: 0 4px 14px rgba(233, 50, 50, 0.12);
         opacity: 0.92;
